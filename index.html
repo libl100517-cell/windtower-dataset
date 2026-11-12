@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="WindTower 风电塔筒裂缝数据清单、标注格式与 Li 等（2025）论文解读。">
+  <title>WindTower · 混凝土风电塔筒裂缝</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <header><div class="wrap nav"><a class="brand" href="#main">WindTower</a><nav aria-label="站内导航"><a href="#dataset">数据</a><a href="#method">方法</a><a href="#cite">引用</a></nav></div></header>
+  <main id="main">
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">无人机巡检 · 混凝土结构</p>
+          <h1>风电塔筒<br>裂缝评估</h1>
+          <p class="lead">从航拍图像识别细裂缝，再将裂缝投影到三维塔筒表面。了解 WindTower 数据清单与 Li 等（2025）的评估方法。</p>
+          <div class="links"><a class="button" href="#dataset">查看数据清单 ↓</a><a href="https://doi.org/10.1177/13694332251344664">阅读原论文 ↗</a></div>
+        </div>
+        <figure><div class="drawing" aria-hidden="true"><div class="tower"></div><div class="orbit one"></div><div class="orbit two"></div><div class="scan"></div></div><figcaption>示意图 · 环绕采集与塔筒表面定位</figcaption></figure>
+      </div>
+    </section>
+    <section id="dataset" class="wrap section">
+      <h2>WindTower 数据清单</h2>
+      <p>服务器项目保存了整图与裁剪图两套索引。下表按清单中的条目数统计。</p>
+      <div class="table-wrap">
+        <table>
+          <caption>服务器配置中的样本划分</caption>
+          <thead><tr><th scope="col">配置</th><th scope="col">训练</th><th scope="col">验证</th><th scope="col">测试</th><th scope="col">类别配置</th></tr></thead>
+          <tbody>
+            <tr><th scope="row">整图</th><td>1,692</td><td>564</td><td>565</td><td>Crack、Drop</td></tr>
+            <tr><th scope="row">裁剪图</th><td>3,033</td><td>759</td><td>复用验证集</td><td>Crack</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="notice"><strong>数据访问</strong> 配置、划分和对应标签已归档。项目中的原始图像路径缺失。图像与标注的公开下载地址尚未确认。</p>
+      <details>
+        <summary>文件结构与标注</summary>
+        <dl>
+          <dt><code>data/windtower.yaml</code></dt><dd>整图配置，引用 <code>datasets/windtower_*.txt</code>。标注每行包含类别编号及归一化的中心横坐标、中心纵坐标、宽度和高度。</dd>
+          <dt><code>data/windtower_341_228.yaml</code></dt><dd>裁剪图配置，引用 <code>train_341_228.txt</code> 和 <code>val_341_228.txt</code>。实查标注行的首列均为 1，配置声明单类别。复现时应使用项目对应的网格训练逻辑并核对类别映射。</dd>
+        </dl>
+      </details>
+      <div class="note">
+        <h3>论文中的训练数据</h3>
+        <p>论文记载，作者将 5,456 × 3,632 像素的航拍图按 16 × 16 切分，建立含 3,750 张 341 × 227 像素 RGB 图块的数据集。训练、验证、测试各含 2,250、750、750 张。服务器索引与论文所列数量和划分不同，样本对应关系尚未核实。</p>
+      </div>
+    </section>
+    <section id="method" class="band">
+      <div class="wrap section">
+        <h2>从图像到三维裂缝</h2>
+        <ol class="columns steps">
+          <li><h3>环绕拍摄</h3><p>依据塔筒几何、工作距离和视场设置相邻影像重叠，为三维重建保留多视角信息。</p></li>
+          <li><h3>识别与提取</h3><p>用带注意力机制的网格 CNN 找到疑似裂缝，再在候选区域用数字图像处理提取细裂缝。</p></li>
+          <li><h3>重建与投影</h3><p>基于 SfM 重建塔筒，用增量投影处理邻接图像重叠，在三角网格表面定位与量测裂缝。</p></li>
+        </ol>
+        <h3>论文报告的结果</h3>
+        <dl class="columns metrics">
+          <div><dt>测试集 AP</dt><dd>0.86</dd></div>
+          <div><dt>跨视角平均定位误差</dt><dd>0.86 <small>mm</small></dd></div>
+          <div><dt>相对全量投影的用时降幅</dt><dd>22.5%</dd></div>
+        </dl>
+      </div>
+    </section>
+    <section id="cite" class="wrap section">
+      <h2>论文引用</h2>
+      <p lang="en">Li, B.-L., Feng, C.-Q., Wei, S.-H., &amp; Liu, Y.-F. (2025). Concrete wind turbine tower crack assessment based on drone imaging using computer vision and artificial intelligence. <em>Advances in Structural Engineering, 28</em>(16), 3121–3140.</p>
+      <div class="links"><a href="https://doi.org/10.1177/13694332251344664">DOI 10.1177/13694332251344664 ↗</a><a href="citation.bib" download>下载 BibTeX ↓</a></div>
+    </section>
+  </main>
+  <footer><div class="wrap">WindTower 数据与论文说明</div></footer>
+</body>
+</html>

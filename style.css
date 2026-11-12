@@ -1,0 +1,78 @@
+:root {
+  color-scheme: light;
+  --ink: #192421;
+  --muted: #495b55;
+  --paper: #f7f5ee;
+  --line: #c7cfc3;
+  --accent: #adf2bc;
+  --forest: #132f29;
+  font-family: "Instrument Sans", "Microsoft YaHei", system-ui, sans-serif;
+  color: var(--ink);
+  background: var(--paper);
+}
+* { box-sizing: border-box; }
+body { margin: 0; line-height: 1.7; }
+a { color: inherit; text-underline-offset: .22em; }
+:focus-visible { outline: 3px solid #8fb15e; outline-offset: 5px; }
+.skip { position: absolute; left: 1rem; top: -6rem; background: white; color: #111; padding: .5rem 1rem; z-index: 1; }
+.skip:focus { top: 1rem; }
+.wrap { width: min(1080px, calc(100% - 3rem)); margin-inline: auto; }
+header, .hero { background: var(--forest); color: #f7fff7; }
+header { border-bottom: 1px solid #3b5950; }
+.nav, nav, .links { display: flex; align-items: center; gap: clamp(.7rem, 4vw, 2rem); }
+.nav { justify-content: space-between; min-height: 4.3rem; }
+.nav a { text-decoration: none; }
+.nav a:hover { text-decoration: underline; }
+.brand { font-size: 1.2rem; font-weight: 750; letter-spacing: -.035em; }
+.hero-grid { display: grid; grid-template-columns: 1.15fr .85fr; align-items: center; gap: 2.5rem; padding-block: clamp(3.5rem, 8vw, 7rem); }
+h1, h2, h3, p { margin-top: 0; }
+h1 { font-size: clamp(3.05rem, 7vw, 6rem); line-height: 1.1; margin-bottom: 1.35rem; letter-spacing: -.06em; }
+h2 { font-size: clamp(1.9rem, 4vw, 3rem); line-height: 1.25; margin-bottom: .95rem; letter-spacing: -.04em; }
+h3 { line-height: 1.4; margin-bottom: .45rem; }
+.eyebrow { color: var(--accent); font-size: .83rem; font-weight: 700; letter-spacing: .13em; }
+.lead { color: #d0e4d9; max-width: 34rem; font-size: 1.08rem; }
+.links { flex-wrap: wrap; }
+.button { background: var(--accent); color: var(--forest); padding: .65rem 1.05rem; font-weight: 700; text-decoration: none; }
+.button:hover { background: #d3fce0; }
+figure { margin: 0; }
+.drawing { height: clamp(245px, 35vw, 365px); position: relative; overflow: hidden; border: 1px solid #4f6e5f; background: repeating-linear-gradient(0deg, transparent 0 23px, #3a564b 24px), repeating-linear-gradient(90deg, #1a3930 0 23px, #3a564b 24px); }
+.tower { position: absolute; inset: 12% 36% 10%; background: linear-gradient(90deg, #6e9c81, #d4e8d2 38%, #547963); clip-path: polygon(36% 0, 64% 0, 100% 100%, 0 100%); }
+.orbit { position: absolute; left: 13%; width: 74%; height: 20%; border: 1px dashed #adf2bc; border-radius: 50%; transform: rotate(-12deg); }
+.one { top: 30%; }
+.two { top: 59%; }
+.scan { position: absolute; top: 46%; left: 47%; width: 12%; height: 20%; border: 1px solid white; background: #143d2f42; }
+figcaption { margin-top: .55rem; color: #c6ded0; font-size: .83rem; }
+.section { padding-block: clamp(3rem, 7vw, 5.5rem); }
+.section > p, .note { max-width: 49rem; }
+.table-wrap { overflow-x: auto; margin: 1.5rem 0; }
+table { width: 100%; border-collapse: collapse; text-align: left; font-variant-numeric: tabular-nums; }
+caption { text-align: left; color: var(--muted); font-size: .9rem; padding-bottom: .4rem; }
+th, td { padding: .8rem .65rem; border-bottom: 1px solid var(--line); }
+thead { background: #e4ece1; }
+.notice { border-left: 3px solid #508867; padding: .8rem 1rem; background: #e8eee2; }
+.notice strong { margin-right: .45em; }
+details { border-block: 1px solid var(--line); padding-block: .8rem; }
+summary { cursor: pointer; font-weight: 700; }
+dt { font-weight: 700; }
+dd { margin: 0 0 .7rem; }
+code { overflow-wrap: anywhere; }
+.note { margin-top: 2rem; }
+.note p, .steps p { margin-bottom: 0; }
+.band { background: #e8eee2; }
+.columns { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem 2rem; }
+.steps { padding-left: 1.45rem; margin-block: 1.6rem 2.3rem; }
+.metrics { margin-bottom: 0; }
+.metrics div { border-top: 1px solid #a3b5a8; padding-top: .7rem; }
+.metrics dd { font-size: clamp(2.15rem, 4vw, 3.5rem); font-weight: 750; line-height: 1.3; letter-spacing: -.055em; }
+.metrics small { font-size: .45em; letter-spacing: normal; }
+footer { border-top: 1px solid var(--line); padding-block: 1.2rem; color: var(--muted); font-size: .85rem; }
+@media (max-width: 690px) {
+  .wrap { width: calc(100% - 2rem); }
+  .hero-grid, .steps { grid-template-columns: 1fr; }
+  .drawing { height: 235px; }
+  th, td { padding: .65rem .45rem; }
+}
+@media (max-width: 470px) {
+  .metrics { grid-template-columns: 1fr; }
+  table { min-width: 365px; }
+}
